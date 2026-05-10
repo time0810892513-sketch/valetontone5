@@ -2,7 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 
 # บังคับใช้ค่าคงที่เพื่อความเสถียร
-API_KEY = "AIzaSyDUuaqNCi7YhqJ65PimkscsXMDFRYElXrQ" # ตรวจสอบ Key อีกครั้งใน Google AI Studio
+API_KEY = "AIzaSyBoxF2LNf7frCnPEgVz7h4EK6qCXYiOV4E" # ตรวจสอบ Key อีกครั้งใน Google AI Studio
 
 # ตั้งค่าโดยบังคับใช้ transport='rest' เพื่อหลีกเลี่ยงปัญหา gRPC 
 genai.configure(api_key=API_KEY, transport='rest')
