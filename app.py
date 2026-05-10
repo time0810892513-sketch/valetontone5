@@ -6,7 +6,7 @@ GEMINI_API_KEY = "AIzaSyDb_1D2526eAgbzYaLKRy0XlCdr-hc1BDs" #
 genai.configure(api_key=GEMINI_API_KEY, transport='rest')
 
 # 2. เลือกโมเดลโดยใช้ชื่อพาธเต็มเพื่อเลี่ยง Error 404
-model = genai.GenerativeModel(model_name="gemini-1.5-flash") #
+model = genai.GenerativeModel(model_name="gemini-pro") #
 
 # ส่วนหัวของแอป
 st.title("🎸 Valeton GP-200 Tone Assistant")
