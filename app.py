@@ -1,45 +1,31 @@
 import streamlit as st
 import google.generativeai as genai
 
-# 1. ใส่ API KEY ของคุณตรงนี้
-GEMINI_API_KEY = "AIzaSyDUt6fHGRs0MxRMpfoGry1IJl9BONjLftM"
+# 1. ตั้งค่า API Key
+GEMINI_API_KEY = "AIzaSyDUt6fHGRsOMxRMpfoGry1IJ19BONjLftM"
+genai.configure(api_key=GEMINI_API_KEY)
 
-st.set_page_config(page_title="Valeton GP-200 Assistant", page_icon="🎸")
+# 2. เลือกโมเดล (ใช้ตัวที่เสถียรที่สุด)
+model = genai.GenerativeModel('gemini-1.5-flash')
+
 st.title("🎸 Valeton GP-200 Tone Assistant")
+st.write("ค้นหาสูตรปรับเสียงกีตาร์สำหรับ Valeton GP-200")
 
-def run_ai(user_query):
-    try:
-        genai.configure(api_key=GEMINI_API_KEY)
-        
-        # ค้นหาชื่อรุ่นที่เครื่องคุณอนุญาตให้ใช้ (เพื่อแก้ปัญหา 404)
-        available_models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
-        
-        # เลือกใช้รุ่นแรกที่หาเจอ (ปกติจะเป็น gemini-1.5-flash หรือ gemini-pro)
-        if available_models:
-            model_name = available_models[0]
-            model = genai.GenerativeModel(model_name)
-        else:
-            return "❌ ไม่พบ Model ที่ใช้งานได้ใน API Key นี้"
-
-        prompt = f"""
-        ในฐานะมือกีตาร์ที่เชี่ยวชาญ Valeton GP-200 
-        ช่วยแนะนำการตั้งค่าสำหรับเพลง: {user_query}
-        1. ระบุชื่อ AMP และ CAB ที่มีในเครื่อง
-        2. บอกค่า Gain และ EQ เบื้องต้น
-        3. แนะนำเอฟเฟกต์ที่ควรใช้ใน Signal Chain
-        """
-        
-        response = model.generate_content(prompt)
-        return response.text
-    except Exception as e:
-        return f"🆘 เกิดข้อผิดพลาด: {str(e)}"
-
-user_input = st.text_input("🎵 ใส่ชื่อเพลง / ศิลปิน (เช่น อยากเห็นหน้าคุณ - LOSO):")
+# 3. ส่วนรับชื่อเพลง
+song_name = st.text_input("ใส่ชื่อเพลง / ศิลปินที่คุณต้องการ:", placeholder="เช่น อยากเห็นหน้าคุณ - LOSO")
 
 if st.button("ค้นหาโทนเสียง"):
-    if user_input:
-        with st.spinner("กำลังค้นหาโทนเสียงที่ดีที่สุด..."):
-            result = run_ai(user_input)
-            st.write(result)
+    if song_name:
+        with st.spinner('กำลังวิเคราะห์โทนเสียง...'):
+            try:
+                # ส่งคำสั่งให้ AI วิเคราะห์
+                prompt = f"ขอการตั้งค่า Signal Chain สำหรับ Valeton GP-200 ในเพลง {song_name} โดยบอกละเอียดทั้ง Amp, Cab, และ Effects"
+                response = model.generate_content(prompt)
+                
+                # แสดงผลลัพธ์
+                st.success(f"โทนเสียงสำหรับเพลง: {song_name}")
+                st.markdown(response.text)
+            except Exception as e:
+                st.error(f"เกิดข้อผิดพลาดในการเชื่อมต่อ: {e}")
     else:
-        st.warning("ใส่ชื่อเพลงก่อนนะครับ")
+        st.warning("กรุณาใส่ชื่อเพลงก่อนครับ")
