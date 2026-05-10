@@ -2,7 +2,7 @@ import streamlit as st
 import google.generativeai as genai
 
 # 1. ตั้งค่า API Key (ห้ามลบเครื่องหมายอัญประกาศ)
-GEMINI_API_KEY = "AIzaSyDUt6fHGRsOMxRMpfoGry1IJ19BONjLftM"
+GEMINI_API_KEY = "AIzaSyDShLCosHT_-7CLtgsGY_sBsijC5RlquVg"
 genai.configure(api_key=GEMINI_API_KEY)
 
 # 2. เลือกโมเดล
