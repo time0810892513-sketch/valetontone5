@@ -3,10 +3,10 @@ import google.generativeai as genai
 
 # 1. ตั้งค่า API Key (ห้ามลบเครื่องหมายอัญประกาศ)
 GEMINI_API_KEY = "AIzaSyDShLCosHT_-7CLtgsGY_sBsijC5RlquVg"
-genai.configure(api_key=GEMINI_API_KEY)
+genai.configure(api_key=GEMINI_API_KEY, transport='rest')
 
 # 2. เลือกโมเดล
-model = genai.GenerativeModel('gemini-1.5-flash-latest')
+model = genai.GenerativeModel(model_name="models/gemini-1.5-flash")
 st.title("🎸 Valeton GP-200 Tone Assistant")
 st.write("ระบุชื่อเพลงเพื่อหาค่าการตั้งค่า Amp/Eff สำหรับ Valeton GP-200")
 
