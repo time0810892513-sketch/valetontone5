@@ -6,7 +6,7 @@ GEMINI_API_KEY = "AIzaSyDShLCosHT_-7CLtgsGY_sBsijC5RlquVg"
 genai.configure(api_key=GEMINI_API_KEY)
 
 # 2. เลือกโมเดล
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel('gemini-pro')
 
 st.title("🎸 Valeton GP-200 Tone Assistant")
 st.write("ระบุชื่อเพลงเพื่อหาค่าการตั้งค่า Amp/Eff สำหรับ Valeton GP-200")
